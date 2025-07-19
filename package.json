@@ -1,17 +1,38 @@
 {
-  "name": "remotion",
+  "name": "videoextract",
   "version": "1.0.0",
-  "private": true,
-  "main": "index.js",
+  "description": "A CLI tool to extract videos from JSON timeline files using Remotion",
+  "main": "dist/src/index.js",
+  "bin": {
+    "videoextract": "dist/src/cli.js"
+  },
   "scripts": {
     "start": "ts-node src/index.tsx",
-    "build": "tsc",
-    "render": "ts-node src/index.tsx"
+    "build": "tsc && chmod +x dist/src/cli.js",
+    "render": "ts-node src/index.tsx",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm run build",
+    "postinstall": "./scripts/postinstall.sh",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["video", "remotion", "cli", "extract", "timeline", "video-processing", "video-generation"],
+  "author": "Alok Kaushik <alokkaushik5953@gmail.com>",
   "license": "ISC",
-  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alok5953/videoextract.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alok5953/videoextract/issues"
+  },
+  "homepage": "https://github.com/alok5953/videoextract#readme",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "files": [
+    "dist/**/*",
+    "README.md"
+  ],
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
     "@radix-ui/react-tabs": "^1.1.12",

@@ -1,0 +1,1 @@
+{"version":3,"file":"sound-layer-content.d.ts","sourceRoot":"","sources":["../../../../src/overlays/sounds/sound-layer-content.tsx"],"names":[],"mappings":"AACA,OAAO,EAAE,YAAY,EAAE,MAAM,kBAAkB,CAAC;AAEhD,OAAO,KAAK,MAAM,OAAO,CAAC;AAE1B,UAAU,sBAAsB;IAC9B,OAAO,EAAE,YAAY,CAAC;IACtB,OAAO,CAAC,EAAE,MAAM,CAAC;CAClB;AAED,eAAO,MAAM,iBAAiB,EAAE,KAAK,CAAC,EAAE,CAAC,sBAAsB,CAuB9D,CAAC"}

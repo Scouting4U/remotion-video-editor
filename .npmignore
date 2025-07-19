@@ -1,0 +1,23 @@
+# Source files - we include compiled dist instead
+src/
+tsconfig.json
+
+# Development files
+out/
+timeline.sample.json
+.DS_Store
+.git
+.gitignore
+
+# Node modules
+node_modules/
+
+# Build artifacts not needed for runtime
+*.d.ts.map
+*.tsbuildinfo
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
