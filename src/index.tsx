@@ -23,14 +23,15 @@ const main = async () => {
   // Render the video
   await renderMedia({
     codec: "h264",
+    audioCodec: "aac",
     serveUrl: bundled,
     outputLocation: "out/video.mp4",
         // Highest quality video settings
-    crf: 1, // Lowest CRF for near-lossless quality (range 1-51, where 1 is highest quality)
-    imageFormat: "png", // Use PNG for highest quality frame captures
+    // crf: 1, // Lowest CRF for near-lossless quality (range 1-51, where 1 is highest quality)
+    imageFormat: "jpeg", // Use PNG for highest quality frame captures
     colorSpace: "bt709", // Better color accuracy
-    x264Preset: "veryslow", // Highest quality compression
-    jpegQuality: 100, // Maximum JPEG quality for any JPEG operations
+    x264Preset: "ultrafast", // Highest quality compression
+    // jpegQuality: 100, // Maximum JPEG quality for any JPEG operations
     composition: {
       id: "MyComp",
       height: 720,
@@ -41,9 +42,10 @@ const main = async () => {
       props: {},
       defaultCodec: "h264",
       defaultOutName: "video",
-      defaultVideoImageFormat: "png",
+      defaultVideoImageFormat: "jpeg",
       defaultPixelFormat: "yuv420p"
     },
+    hardwareAcceleration: "if-possible",
     concurrency: 1,
     inputProps: {
       timeline,
