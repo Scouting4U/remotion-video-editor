@@ -5,12 +5,15 @@ import { extractVideo } from "./videoExtractor";
 import path from "path";
 import os from "os";
 
+// Get version from package.json
+const packageJson = require("../../package.json");
+
 const program = new Command();
 
 program
   .name("videoextract")
   .description("CLI tool to extract videos from JSON timeline files")
-  .version("1.0.0");
+  .version(packageJson.version);
 
 program
   .command("extract")

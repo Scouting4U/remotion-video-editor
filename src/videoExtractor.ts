@@ -35,6 +35,12 @@ export async function extractVideo(
   const baseUrl = "http://localhost:3000";
 
   console.log("🎬 Rendering started:", new Date().toLocaleString());
+  console.log("📊 Timeline overlays count:", timeline?.overlays?.length || 0);
+  console.log(
+    "⏱️ Timeline duration:",
+    timeline?.durationInFrames || 0,
+    "frames"
+  );
 
   try {
     // Render the video
@@ -72,8 +78,19 @@ export async function extractVideo(
         disableWebSecurity: true,
         ignoreCertificateErrors: true,
       },
-      // Set a timeout for media loading
-      timeoutInMilliseconds: 300000,
+      // Set a shorter timeout for testing
+      timeoutInMilliseconds: 120000, // 2 minutes instead of 5
+      // Add progress callback
+      onProgress: ({
+        renderedFrames,
+        encodedFrames,
+        encodedDoneIn,
+        renderedDoneIn,
+      }) => {
+        console.log(
+          `🎬 Progress: ${renderedFrames} frames rendered, ${encodedFrames} frames encoded`
+        );
+      },
     });
 
     console.log("🎉 Rendering completed:", new Date().toLocaleString());

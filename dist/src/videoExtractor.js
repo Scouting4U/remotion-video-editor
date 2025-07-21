@@ -11,6 +11,7 @@ const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const loadTimeline_1 = require("./loadTimeline");
 async function extractVideo(timelineFilePath, outputPath) {
+    var _a;
     // Validate that the timeline file exists
     if (!fs_1.default.existsSync(timelineFilePath)) {
         throw new Error(`Timeline file not found: ${timelineFilePath}`);
@@ -29,6 +30,8 @@ async function extractVideo(timelineFilePath, outputPath) {
     }
     const baseUrl = "http://localhost:3000";
     console.log("🎬 Rendering started:", new Date().toLocaleString());
+    console.log("📊 Timeline overlays count:", ((_a = timeline === null || timeline === void 0 ? void 0 : timeline.overlays) === null || _a === void 0 ? void 0 : _a.length) || 0);
+    console.log("⏱️ Timeline duration:", (timeline === null || timeline === void 0 ? void 0 : timeline.durationInFrames) || 0, "frames");
     try {
         // Render the video
         await (0, renderer_1.renderMedia)({
@@ -65,8 +68,12 @@ async function extractVideo(timelineFilePath, outputPath) {
                 disableWebSecurity: true,
                 ignoreCertificateErrors: true,
             },
-            // Set a timeout for media loading
-            timeoutInMilliseconds: 300000,
+            // Set a shorter timeout for testing
+            timeoutInMilliseconds: 120000, // 2 minutes instead of 5
+            // Add progress callback
+            onProgress: ({ renderedFrames, encodedFrames, encodedDoneIn, renderedDoneIn, }) => {
+                console.log(`🎬 Progress: ${renderedFrames} frames rendered, ${encodedFrames} frames encoded`);
+            },
         });
         console.log("🎉 Rendering completed:", new Date().toLocaleString());
     }

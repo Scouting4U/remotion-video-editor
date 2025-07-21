@@ -8,11 +8,13 @@ const commander_1 = require("commander");
 const videoExtractor_1 = require("./videoExtractor");
 const path_1 = __importDefault(require("path"));
 const os_1 = __importDefault(require("os"));
+// Get version from package.json
+const packageJson = require("../../package.json");
 const program = new commander_1.Command();
 program
     .name("videoextract")
     .description("CLI tool to extract videos from JSON timeline files")
-    .version("1.0.0");
+    .version(packageJson.version);
 program
     .command("extract")
     .description("Extract video from a JSON timeline file")

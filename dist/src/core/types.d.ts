@@ -240,19 +240,19 @@ export declare const CompositionProps: z.ZodObject<{
     fps: z.ZodNumber;
     src: z.ZodString;
 }, "strip", z.ZodTypeAny, {
+    src: string;
     overlays: any[];
     durationInFrames: number;
     width: number;
     height: number;
     fps: number;
-    src: string;
 }, {
+    src: string;
     overlays: any[];
     durationInFrames: number;
     width: number;
     height: number;
     fps: number;
-    src: string;
 }>;
 export declare const RenderRequest: z.ZodObject<{
     id: z.ZodString;
@@ -264,38 +264,38 @@ export declare const RenderRequest: z.ZodObject<{
         fps: z.ZodNumber;
         src: z.ZodString;
     }, "strip", z.ZodTypeAny, {
+        src: string;
         overlays: any[];
         durationInFrames: number;
         width: number;
         height: number;
         fps: number;
-        src: string;
     }, {
+        src: string;
         overlays: any[];
         durationInFrames: number;
         width: number;
         height: number;
         fps: number;
-        src: string;
     }>;
 }, "strip", z.ZodTypeAny, {
     inputProps: {
+        src: string;
         overlays: any[];
         durationInFrames: number;
         width: number;
         height: number;
         fps: number;
-        src: string;
     };
     id: string;
 }, {
     inputProps: {
+        src: string;
         overlays: any[];
         durationInFrames: number;
         width: number;
         height: number;
         fps: number;
-        src: string;
     };
     id: string;
 }>;
