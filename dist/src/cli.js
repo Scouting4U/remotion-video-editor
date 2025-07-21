@@ -27,7 +27,7 @@ program
         const timelineFilePath = path_1.default.resolve(jsonFile);
         // Set default output directory to Downloads folder
         const outputDir = options.output || path_1.default.join(os_1.default.homedir(), "Downloads");
-        const outputFilename = `${options.name}.mp4`;
+        const outputFilename = `${options.name}-${Date.now()}.mp4`;
         const outputPath = path_1.default.join(outputDir, outputFilename);
         console.log(`🎬 Starting video extraction...`);
         console.log(`📄 Timeline file: ${timelineFilePath}`);

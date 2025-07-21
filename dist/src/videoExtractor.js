@@ -36,27 +36,29 @@ async function extractVideo(timelineFilePath, outputPath) {
         // Render the video
         await (0, renderer_1.renderMedia)({
             codec: "h264",
+            audioCodec: "aac",
             serveUrl: bundled,
             outputLocation: outputPath,
             // Highest quality video settings
-            crf: 1, // Lowest CRF for near-lossless quality (range 1-51, where 1 is highest quality)
-            imageFormat: "png", // Use PNG for highest quality frame captures
+            // crf: 1, // Lowest CRF for near-lossless quality (range 1-51, where 1 is highest quality)
+            imageFormat: "jpeg", // Use PNG for highest quality frame captures
             colorSpace: "bt709", // Better color accuracy
-            x264Preset: "veryslow", // Highest quality compression
-            jpegQuality: 100, // Maximum JPEG quality for any JPEG operations
+            x264Preset: "ultrafast", // Highest quality compression
+            // jpegQuality: 100, // Maximum JPEG quality for any JPEG operations
             composition: {
                 id: "MyComp",
                 height: 720,
                 width: 1280,
                 fps: 30,
-                durationInFrames: (timeline === null || timeline === void 0 ? void 0 : timeline.durationInFrames) || 300,
+                durationInFrames: timeline === null || timeline === void 0 ? void 0 : timeline.durationInFrames,
                 defaultProps: {},
                 props: {},
                 defaultCodec: "h264",
                 defaultOutName: "video",
-                defaultVideoImageFormat: "png",
+                defaultVideoImageFormat: "jpeg",
                 defaultPixelFormat: "yuv420p",
             },
+            hardwareAcceleration: "if-possible",
             concurrency: 1,
             inputProps: {
                 timeline,
@@ -68,12 +70,8 @@ async function extractVideo(timelineFilePath, outputPath) {
                 disableWebSecurity: true,
                 ignoreCertificateErrors: true,
             },
-            // Set a shorter timeout for testing
-            timeoutInMilliseconds: 120000, // 2 minutes instead of 5
-            // Add progress callback
-            onProgress: ({ renderedFrames, encodedFrames, encodedDoneIn, renderedDoneIn, }) => {
-                console.log(`🎬 Progress: ${renderedFrames} frames rendered, ${encodedFrames} frames encoded`);
-            },
+            // Set a timeout for media loading
+            timeoutInMilliseconds: 300000,
         });
         console.log("🎉 Rendering completed:", new Date().toLocaleString());
     }
