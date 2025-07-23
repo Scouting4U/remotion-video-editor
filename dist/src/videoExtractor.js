@@ -9,6 +9,7 @@ const bundler_1 = require("@remotion/bundler");
 const renderer_1 = require("@remotion/renderer");
 const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
+const cli_progress_1 = __importDefault(require("cli-progress"));
 const loadTimeline_1 = require("./loadTimeline");
 async function extractVideo(timelineFilePath, outputPath) {
     var _a;
@@ -32,6 +33,18 @@ async function extractVideo(timelineFilePath, outputPath) {
     console.log("🎬 Rendering started:", new Date().toLocaleString());
     console.log("📊 Timeline overlays count:", ((_a = timeline === null || timeline === void 0 ? void 0 : timeline.overlays) === null || _a === void 0 ? void 0 : _a.length) || 0);
     console.log("⏱️ Timeline duration:", (timeline === null || timeline === void 0 ? void 0 : timeline.durationInFrames) || 0, "frames");
+    // Create progress bar
+    const progressBar = new cli_progress_1.default.SingleBar({
+        format: "🎞️  Rendering |{bar}| {percentage}% | Frame {value}/{total} | ETA: {eta}s",
+        barCompleteChar: "\u2588",
+        barIncompleteChar: "\u2591",
+        hideCursor: true,
+        clearOnComplete: false,
+        stopOnComplete: true,
+    });
+    // Initialize progress bar with total frames
+    const totalFrames = (timeline === null || timeline === void 0 ? void 0 : timeline.durationInFrames) || 0;
+    progressBar.start(totalFrames, 0);
     try {
         // Render the video
         await (0, renderer_1.renderMedia)({
@@ -72,10 +85,20 @@ async function extractVideo(timelineFilePath, outputPath) {
             },
             // Set a timeout for media loading
             timeoutInMilliseconds: 300000,
+            // Progress callback to update progress bar
+            onProgress: ({ renderedFrames, encodedFrames }) => {
+                // Use encodedFrames as it represents the actual progress better
+                const currentFrame = Math.max(renderedFrames, encodedFrames);
+                progressBar.update(currentFrame);
+            },
         });
+        // Stop progress bar and show completion
+        progressBar.stop();
         console.log("🎉 Rendering completed:", new Date().toLocaleString());
     }
     catch (error) {
+        // Stop progress bar on error
+        progressBar.stop();
         console.error("🚨 Rendering failed:", error);
         throw error;
     }

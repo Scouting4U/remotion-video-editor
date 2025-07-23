@@ -3,6 +3,7 @@ import { bundle } from "@remotion/bundler";
 import { renderMedia } from "@remotion/renderer";
 import path from "path";
 import fs from "fs";
+import cliProgress from "cli-progress";
 import { loadTimeline } from "./loadTimeline";
 
 export async function extractVideo(
@@ -42,6 +43,21 @@ export async function extractVideo(
     "frames"
   );
 
+  // Create progress bar
+  const progressBar = new cliProgress.SingleBar({
+    format:
+      "🎞️  Rendering |{bar}| {percentage}% | Frame {value}/{total} | ETA: {eta}s",
+    barCompleteChar: "\u2588",
+    barIncompleteChar: "\u2591",
+    hideCursor: true,
+    clearOnComplete: false,
+    stopOnComplete: true,
+  });
+
+  // Initialize progress bar with total frames
+  const totalFrames = timeline?.durationInFrames || 0;
+  progressBar.start(totalFrames, 0);
+
   try {
     // Render the video
     await renderMedia({
@@ -50,7 +66,7 @@ export async function extractVideo(
       serveUrl: bundled,
       outputLocation: outputPath,
       // Highest quality video settings
-      // crf: 1, // Lowest CRF for near-lossless quality (range 1-51, where 1 is highest quality)
+      crf: 23, // Lowest CRF for near-lossless quality (range 1-51, where 1 is highest quality)
       imageFormat: "jpeg", // Use PNG for highest quality frame captures
       colorSpace: "bt709", // Better color accuracy
       x264Preset: "ultrafast", // Highest quality compression
@@ -82,10 +98,20 @@ export async function extractVideo(
       },
       // Set a timeout for media loading
       timeoutInMilliseconds: 300000,
+      // Progress callback to update progress bar
+      onProgress: ({ renderedFrames, encodedFrames }) => {
+        // Use encodedFrames as it represents the actual progress better
+        const currentFrame = Math.max(renderedFrames, encodedFrames);
+        progressBar.update(currentFrame);
+      },
     });
 
+    // Stop progress bar and show completion
+    progressBar.stop();
     console.log("🎉 Rendering completed:", new Date().toLocaleString());
   } catch (error) {
+    // Stop progress bar on error
+    progressBar.stop();
     console.error("🚨 Rendering failed:", error);
     throw error;
   }

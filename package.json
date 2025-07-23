@@ -1,6 +1,6 @@
 {
   "name": "videoextract-cli",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "A CLI tool to extract videos from JSON timeline files using Remotion",
   "main": "dist/src/index.js",
   "bin": {
@@ -65,6 +65,7 @@
     "@types/crypto-js": "^4.2.2",
     "@types/webpack": "^5.28.5",
     "class-variance-authority": "^0.7.1",
+    "cli-progress": "^3.12.0",
     "clsx": "^2.1.1",
     "commander": "^14.0.0",
     "crypto-js": "^4.2.0",
@@ -84,6 +85,7 @@
     "zod": "^3.22.3"
   },
   "devDependencies": {
+    "@types/cli-progress": "^3.11.6",
     "@types/crypto-js": "^4.2.2",
     "@types/lodash": "^4.17.12",
     "@types/node": "^24.0.14",
