@@ -53,7 +53,7 @@ async function extractVideo(timelineFilePath, outputPath) {
             serveUrl: bundled,
             outputLocation: outputPath,
             // Highest quality video settings
-            // crf: 1, // Lowest CRF for near-lossless quality (range 1-51, where 1 is highest quality)
+            crf: 23, // Lowest CRF for near-lossless quality (range 1-51, where 1 is highest quality)
             imageFormat: "jpeg", // Use PNG for highest quality frame captures
             colorSpace: "bt709", // Better color accuracy
             x264Preset: "ultrafast", // Highest quality compression
