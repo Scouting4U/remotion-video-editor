@@ -30,6 +30,9 @@ program
   )
   .action(async (jsonFile: string, options) => {
     try {
+      // Show CLI version at the top
+      console.log(`🛠️  videoextract-cli version: ${packageJson.version}`);
+
       // Resolve the JSON file path
       const timelineFilePath = path.resolve(jsonFile);
 
