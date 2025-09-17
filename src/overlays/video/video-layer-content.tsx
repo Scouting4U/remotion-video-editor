@@ -4,6 +4,8 @@ import { ClipOverlay } from "../../core/types";
 import { toAbsoluteUrl } from "../../utils/url-helper";
 import { useEffect, useCallback } from "react";
 import { animationTemplates } from "../images/image-layer-content";
+import {AbsoluteFill, staticFile} from 'remotion';
+import {experimental_NewVideo as NewVideo} from '@remotion/video';
 
 /**
  * Interface defining the props for the VideoLayerContent component
@@ -124,10 +126,9 @@ export const VideoLayerContent: React.FC<VideoLayerContentProps> = ({
 
   return (
     <div style={containerStyle}>
-      <Video
-        muted
+      <NewVideo
         src={videoSrc}
-        startFrom={overlay.videoStartTime || 0}
+        trimBefore={overlay.videoStartTime || 0}
         style={videoStyle}
         volume={overlay.styles.volume ?? 1}
         playbackRate={overlay.speed ?? 1}
