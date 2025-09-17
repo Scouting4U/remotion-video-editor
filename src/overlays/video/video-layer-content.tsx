@@ -126,7 +126,8 @@ export const VideoLayerContent: React.FC<VideoLayerContentProps> = ({
 
   return (
     <div style={containerStyle}>
-      <NewVideo
+      <Video
+        muted
         src={videoSrc}
         trimBefore={overlay.videoStartTime || 0}
         style={videoStyle}
