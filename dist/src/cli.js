@@ -22,9 +22,13 @@ program
     .option("-o, --output <path>", "Output directory (defaults to Downloads folder)")
     .option("-n, --name <name>", "Output video filename (without extension)", "video")
     .action(async (jsonFile, options) => {
+    var _a;
     try {
         // Show CLI version at the top
+        // Show CLI and Remotion versions at the top
+        const remotionVersion = ((_a = packageJson.dependencies) === null || _a === void 0 ? void 0 : _a.remotion) || "unknown";
         console.log(`🛠️  videoextract-cli version: ${packageJson.version}`);
+        console.log(`🎬 Remotion version: ${remotionVersion}`);
         // Resolve the JSON file path
         const timelineFilePath = path_1.default.resolve(jsonFile);
         // Set default output directory to Downloads folder

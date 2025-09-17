@@ -31,7 +31,11 @@ program
   .action(async (jsonFile: string, options) => {
     try {
       // Show CLI version at the top
+
+      // Show CLI and Remotion versions at the top
+      const remotionVersion = packageJson.dependencies?.remotion || "unknown";
       console.log(`🛠️  videoextract-cli version: ${packageJson.version}`);
+      console.log(`🎬 Remotion version: ${remotionVersion}`);
 
       // Resolve the JSON file path
       const timelineFilePath = path.resolve(jsonFile);

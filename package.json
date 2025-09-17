@@ -1,6 +1,6 @@
 {
   "name": "videoextract-cli",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A CLI tool to extract videos from JSON timeline files using Remotion",
   "main": "dist/src/index.js",
   "bin": {
