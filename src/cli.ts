@@ -17,8 +17,8 @@ program
 
 program
   .command("extract")
-  .description("Extract video from a JSON timeline file")
-  .argument("<jsonFile>", "Path to the JSON timeline file")
+  .description("Extract video from a JSON timeline file or inline JSON")
+  .argument("<jsonOrInline>", "Path to the JSON timeline file or inline JSON string")
   .option(
     "-o, --output <path>",
     "Output directory (defaults to Downloads folder)"
@@ -28,7 +28,7 @@ program
     "Output video filename (without extension)",
     "video"
   )
-  .action(async (jsonFile: string, options) => {
+  .action(async (jsonOrInline: string, options) => {
     try {
       // Show CLI version at the top
 
@@ -37,8 +37,22 @@ program
       console.log(`🛠️  videoextract-cli version: ${packageJson.version}`);
       console.log(`🎬 Remotion version: ${remotionVersion}`);
 
-      // Resolve the JSON file path
-      const timelineFilePath = path.resolve(jsonFile);
+      // Determine if input is inline JSON or a file path
+      let timelineInput: any = jsonOrInline;
+      let isInline = false;
+      const trimmed = (jsonOrInline || "").trim();
+      if ((trimmed.startsWith("{") && trimmed.endsWith("}")) || (trimmed.startsWith("[") && trimmed.endsWith("]"))) {
+        try {
+          timelineInput = JSON.parse(trimmed);
+          isInline = true;
+        } catch (e) {
+          // Fall back to treating it as a file path if JSON.parse fails
+          isInline = false;
+        }
+      }
+
+      // Resolve the JSON file path when not inline
+      const timelineFilePath = isInline ? undefined : path.resolve(jsonOrInline);
 
       // Set default output directory to Downloads folder
       const outputDir = options.output || path.join(os.homedir(), "Downloads");
@@ -46,10 +60,14 @@ program
       const outputPath = path.join(outputDir, outputFilename);
 
       console.log(`🎬 Starting video extraction...`);
-      console.log(`📄 Timeline file: ${timelineFilePath}`);
+      if (isInline) {
+        console.log(`📄 Timeline: inline JSON provided`);
+      } else {
+        console.log(`📄 Timeline file: ${timelineFilePath}`);
+      }
       console.log(`📁 Output location: ${outputPath}`);
 
-      await extractVideo(timelineFilePath, outputPath);
+  await extractVideo(timelineInput, outputPath);
 
       console.log(`✅ Video extraction completed!`);
       console.log(`🎥 Video saved to: ${outputPath}`);

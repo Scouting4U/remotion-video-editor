@@ -1,1 +1,1 @@
-{"version":3,"file":"videoExtractor.d.ts","sourceRoot":"","sources":["../../src/videoExtractor.ts"],"names":[],"mappings":"AAQA,wBAAsB,YAAY,CAChC,gBAAgB,EAAE,MAAM,EACxB,UAAU,EAAE,MAAM,GACjB,OAAO,CAAC,IAAI,CAAC,CA0Gf"}
+{"version":3,"file":"videoExtractor.d.ts","sourceRoot":"","sources":["../../src/videoExtractor.ts"],"names":[],"mappings":"AAQA,wBAAsB,YAAY,CAChC,cAAc,EAAE,MAAM,GAAG,MAAM,CAAC,MAAM,EAAE,GAAG,CAAC,EAC5C,UAAU,EAAE,MAAM,GACjB,OAAO,CAAC,IAAI,CAAC,CAgHf"}

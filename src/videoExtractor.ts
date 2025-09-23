@@ -7,12 +7,21 @@ import cliProgress from "cli-progress";
 import { loadTimeline } from "./loadTimeline";
 
 export async function extractVideo(
-  timelineFilePath: string,
+  timelineOrPath: string | Record<string, any>,
   outputPath: string
 ): Promise<void> {
-  // Validate that the timeline file exists
-  if (!fs.existsSync(timelineFilePath)) {
-    throw new Error(`Timeline file not found: ${timelineFilePath}`);
+  // Resolve timeline data from either inline JSON or file path
+  let timeline: any;
+  if (typeof timelineOrPath === "string") {
+    const timelineFilePath = timelineOrPath;
+    // Validate that the timeline file exists
+    if (!fs.existsSync(timelineFilePath)) {
+      throw new Error(`Timeline file not found: ${timelineFilePath}`);
+    }
+    // Load the timeline data
+    timeline = loadTimeline(timelineFilePath);
+  } else {
+    timeline = timelineOrPath;
   }
 
   // Create output directory if it doesn't exist
@@ -26,11 +35,8 @@ export async function extractVideo(
     path.resolve(__dirname, "..", "..", "src", "Root.tsx")
   );
 
-  // Load the timeline data
-  const timeline = loadTimeline(timelineFilePath);
-
   if (!timeline) {
-    throw new Error("Failed to load timeline data from JSON file");
+    throw new Error("Failed to load timeline data");
   }
 
   const baseUrl = "http://localhost:3000";

@@ -11,11 +11,21 @@ const path_1 = __importDefault(require("path"));
 const fs_1 = __importDefault(require("fs"));
 const cli_progress_1 = __importDefault(require("cli-progress"));
 const loadTimeline_1 = require("./loadTimeline");
-async function extractVideo(timelineFilePath, outputPath) {
+async function extractVideo(timelineOrPath, outputPath) {
     var _a;
-    // Validate that the timeline file exists
-    if (!fs_1.default.existsSync(timelineFilePath)) {
-        throw new Error(`Timeline file not found: ${timelineFilePath}`);
+    // Resolve timeline data from either inline JSON or file path
+    let timeline;
+    if (typeof timelineOrPath === "string") {
+        const timelineFilePath = timelineOrPath;
+        // Validate that the timeline file exists
+        if (!fs_1.default.existsSync(timelineFilePath)) {
+            throw new Error(`Timeline file not found: ${timelineFilePath}`);
+        }
+        // Load the timeline data
+        timeline = (0, loadTimeline_1.loadTimeline)(timelineFilePath);
+    }
+    else {
+        timeline = timelineOrPath;
     }
     // Create output directory if it doesn't exist
     const outputDir = path_1.default.dirname(outputPath);
@@ -24,10 +34,8 @@ async function extractVideo(timelineFilePath, outputPath) {
     }
     // Create a webpack bundle of the video
     const bundled = await (0, bundler_1.bundle)(path_1.default.resolve(__dirname, "..", "..", "src", "Root.tsx"));
-    // Load the timeline data
-    const timeline = (0, loadTimeline_1.loadTimeline)(timelineFilePath);
     if (!timeline) {
-        throw new Error("Failed to load timeline data from JSON file");
+        throw new Error("Failed to load timeline data");
     }
     const baseUrl = "http://localhost:3000";
     console.log("🎬 Rendering started:", new Date().toLocaleString());
