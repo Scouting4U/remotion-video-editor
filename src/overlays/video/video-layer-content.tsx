@@ -5,7 +5,7 @@ import { toAbsoluteUrl } from "../../utils/url-helper";
 import { useEffect, useCallback } from "react";
 import { animationTemplates } from "../images/image-layer-content";
 import {AbsoluteFill, staticFile} from 'remotion';
-import {experimental_NewVideo as NewVideo} from '@remotion/video';
+import {experimental_Video as NewVideo} from '@remotion/media';
 
 /**
  * Interface defining the props for the VideoLayerContent component

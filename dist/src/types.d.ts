@@ -240,18 +240,18 @@ export declare const CompositionProps: z.ZodObject<{
     fps: z.ZodNumber;
     src: z.ZodString;
 }, "strip", z.ZodTypeAny, {
+    height: number;
+    width: number;
     src: string;
     overlays: any[];
     durationInFrames: number;
-    width: number;
-    height: number;
     fps: number;
 }, {
+    height: number;
+    width: number;
     src: string;
     overlays: any[];
     durationInFrames: number;
-    width: number;
-    height: number;
     fps: number;
 }>;
 export declare const RenderRequest: z.ZodObject<{
@@ -264,40 +264,40 @@ export declare const RenderRequest: z.ZodObject<{
         fps: z.ZodNumber;
         src: z.ZodString;
     }, "strip", z.ZodTypeAny, {
+        height: number;
+        width: number;
         src: string;
         overlays: any[];
         durationInFrames: number;
-        width: number;
-        height: number;
         fps: number;
     }, {
+        height: number;
+        width: number;
         src: string;
         overlays: any[];
         durationInFrames: number;
-        width: number;
-        height: number;
         fps: number;
     }>;
 }, "strip", z.ZodTypeAny, {
+    id: string;
     inputProps: {
+        height: number;
+        width: number;
         src: string;
         overlays: any[];
         durationInFrames: number;
-        width: number;
-        height: number;
         fps: number;
     };
-    id: string;
 }, {
+    id: string;
     inputProps: {
+        height: number;
+        width: number;
         src: string;
         overlays: any[];
         durationInFrames: number;
-        width: number;
-        height: number;
         fps: number;
     };
-    id: string;
 }>;
 export declare const ProgressRequest: z.ZodObject<{
     bucketName: z.ZodString;
