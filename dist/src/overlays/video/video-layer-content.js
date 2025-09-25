@@ -9,6 +9,7 @@ const remotion_1 = require("remotion");
 const url_helper_1 = require("../../utils/url-helper");
 const react_2 = require("react");
 const image_layer_content_1 = require("../images/image-layer-content");
+const media_1 = require("@remotion/media");
 /**
  * VideoLayerContent component renders a video layer with animations and styling
  *
@@ -93,6 +94,6 @@ const VideoLayerContent = ({ overlay, baseUrl, }) => {
         videoSrc = (0, url_helper_1.toAbsoluteUrl)(overlay.src);
     }
     return (react_1.default.createElement("div", { style: containerStyle },
-        react_1.default.createElement(remotion_1.Video, { muted: true, src: videoSrc, trimBefore: overlay.videoStartTime || 0, style: videoStyle, volume: (_e = overlay.styles.volume) !== null && _e !== void 0 ? _e : 1, playbackRate: (_f = overlay.speed) !== null && _f !== void 0 ? _f : 1 })));
+        react_1.default.createElement(media_1.experimental_Video, { src: videoSrc, trimBefore: overlay.videoStartTime || 0, style: videoStyle, volume: (_e = overlay.styles.volume) !== null && _e !== void 0 ? _e : 1, playbackRate: (_f = overlay.speed) !== null && _f !== void 0 ? _f : 1 })));
 };
 exports.VideoLayerContent = VideoLayerContent;
